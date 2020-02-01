@@ -98,6 +98,6 @@ exports.get_a_user = (req, res) => {
     })
 }
 
-exports.login_user = (req, res) => {
-    User.findOne()
-}
+// exports.login_user = (req, res) => {
+//     User.findOne()
+// }

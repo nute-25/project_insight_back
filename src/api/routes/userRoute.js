@@ -10,6 +10,6 @@ module.exports = (app) => {
     app.route('/users/:user_id')
         .get(userController.get_a_user);
 
-    app.route('/users/login')
-        .post(userController.login_user);
+    // app.route('/users/login')
+    //     .post(userController.login_user);
 }
