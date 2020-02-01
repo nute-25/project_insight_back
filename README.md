@@ -1,4 +1,4 @@
-*IPSSI EISI-IT 21.1AW* 
+*IPSSI EISI-IT 21.1AW - Ines Jebli & Nolwenn Poilleux* 
 
 # Project insight - nodeJS (back-end)
 
