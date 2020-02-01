@@ -12,13 +12,6 @@ const port = 3000;
 /** Database connection **/
 mongoose.connect('mongodb://mongo/' + process.env.DB_NAME);
 
-// // Page d'accueil
-// app.get('/', (req, res) => {
-//     res.type('html');
-//     res.status(200);
-//     res.end("Home page");
-// });
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -26,13 +19,13 @@ app.use(bodyParser.json());
 // Import anonymous functions in constant variables
 // const sessionRoute = require('./api/routes/sessionRoute');
 // const moduleRoute = require('./api/routes/moduleRoute');
-// const userRoute = require('./api/routes/userRoute');
+const userRoute = require('./api/routes/userRoute');
 // const markRoute = require('./api/routes/markRoute');
 // Use anonymous function saved in constant variables
-sessionRoute(app);
-moduleRoute(app);
+// sessionRoute(app);
+// moduleRoute(app);
 userRoute(app);
-markRoute(app);
+// markRoute(app);
 
 /** Bind and listen for connections on the specified host and port **/
 app.listen(port, hostname);
