@@ -2,6 +2,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const Fixtures = require('node-mongodb-fixtures');
+
 
 const app = express();
 
@@ -9,8 +11,21 @@ const app = express();
 const hostname = '0.0.0.0';
 const port = 3000;
 
+/** New fixtures/dataset **/
+const fixtures = new Fixtures({
+    dir: '../fixtures'
+});
+
 /** Database connection **/
 mongoose.connect('mongodb://mongo/' + process.env.DB_NAME);
+
+/** Load fixtures **/
+fixtures
+    .connect('mongodb://mongo/' + process.env.DB_NAME)
+    .then(() => fixtures.unload())
+    .then(() => fixtures.load())
+    .catch(e => console.error(e))
+    .finally(() => fixtures.disconnect());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
