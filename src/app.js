@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Fixtures = require('node-mongodb-fixtures');
+const faker = require('faker');
+const fs = require('fs');
 
 
 const app = express();
@@ -13,7 +15,7 @@ const port = 3000;
 
 /** New fixtures/dataset **/
 const fixtures = new Fixtures({
-    dir: '../fixtures'
+    dir: './fixtures'
 });
 
 /** Database connection **/
@@ -27,6 +29,23 @@ fixtures
     .catch(e => console.error(e))
     .finally(() => fixtures.disconnect());
 
+/** Generate dataset **/
+const user_list = [];
+const role_list = ['administrator', 'student', 'teacher'];
+for (let idx_user = 0; idx_user < 10; idx_user++) {
+    const random_user = {
+        first_name: faker.name.firstName(),
+        name: faker.name.lastName(),
+        pseudo: faker.internet.userName(),
+        password: faker.internet.password(),
+        role: role_list[Math.floor(Math.random() * role_list.length)]
+    };
+    user_list.push(random_user);
+}
+// save users'list in json file
+fs.writeFileSync('./fixtures/users.json', JSON.stringify(user_list, null, 2));
+
+/** Replace special characters */
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -44,3 +63,5 @@ userRoute(app);
 
 /** Bind and listen for connections on the specified host and port **/
 app.listen(port, hostname);
+
+
