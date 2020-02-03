@@ -3,11 +3,12 @@
 const Session = require('../models/sessionModel')
 // CREATE
 exports.create_a_session = (req, res) => {
-    const new_Session = new Session(req.body)
+    let new_session = new Session(req.body)
     try {
         new_session.save((error, session) => {
             if (error) {
                 res.status(400)
+                console.log(error)
                 res.json({ message: "Manque d'information" })
             }
             else {
@@ -17,6 +18,7 @@ exports.create_a_session = (req, res) => {
         })
     } catch (e) {
         res.status(500)
+        console.log(e)
         res.json({ message: "Erreur serveur !!" })
     }
 
@@ -26,6 +28,7 @@ exports.list_all_sessions = (req, res) => {
     Session.find({}, (error, sessions) => {
         if (error) {
             res.status(500)
+            console.log(error)
             res.json({ message: "Erreur serveur !!" })
         }
         else {
@@ -40,6 +43,7 @@ exports.update_a_session = (req, res) => {
         Session.findByIdAndUpdate(req.params.session_id, req.body, { new: true }, (error, session) => {
             if (error) {
                 res.status(400)
+                console.log(error)
                 res.json({ message: "La session n'existe pas" })
             }
             else {
@@ -49,6 +53,7 @@ exports.update_a_session = (req, res) => {
         })
     } catch (e) {
         res.status(500)
+        console.log(e)
         res.json({ message: "Erreur serveur !!" })
     }
 }
@@ -58,6 +63,7 @@ exports.delete_a_session = (req, res) => {
         Session.findByIdAndRemove(req.params.session_id, (error) => {
             if (error) {
                 res.status(400)
+                console.log(error)
                 res.json({ message: "La session n'existe pas" })
             }
             else {
@@ -67,6 +73,7 @@ exports.delete_a_session = (req, res) => {
         })
     } catch (e) {
         res.status(500)
+        console.log(e)
         res.json({ message: "Erreur serveur !!" })
     }
 }
