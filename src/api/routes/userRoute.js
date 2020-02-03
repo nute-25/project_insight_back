@@ -12,4 +12,4 @@ module.exports = (app) => {
 
     // app.route('/users/login')
     //     .post(userController.login_user);
-}
+};
