@@ -1,34 +1,34 @@
 /** Import librairy **/
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 /** Create schema **/
-let moduleSchema = new Schema({
+const moduleSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     start_date: {
         type: Date,
-        required: true
+        required: true,
     },
     end_date: {
         type: Date,
-        required: true
+        required: true,
     },
-    speaker_id {
+    speaker_id: {
         type: String,
-        required: true
+        required: true,
     },
-    session_id {
+    session_id: {
         type: String,
-        required: true
-    }
+        required: true,
+    },
     created_at: {
         type: Date,
-        default: Date.now
-    }
-})
+        default: Date.now,
+    },
+});
 
 /** Export schema **/
-module.exports = mongoose.model('Module', moduleSchema)
+module.exports = mongoose.model('Module', moduleSchema);
