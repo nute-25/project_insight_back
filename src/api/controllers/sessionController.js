@@ -1,79 +1,85 @@
+/* eslint-disable eol-last */
+/* eslint-disable max-len */
+/* eslint-disable padded-blocks */
 /** Import librairy and session model **/
 // const jwt = require('jsonwebtoken')
-const Session = require('../models/sessionModel')
+const Session = require('../models/sessionModel');
 // CREATE
 exports.create_a_session = (req, res) => {
-    let new_session = new Session(req.body)
+    const new_session = new Session(req.body);
     try {
         new_session.save((error, session) => {
             if (error) {
-                res.status(400)
-                console.log(error)
-                res.json({ message: "Manque d'information" })
+                res.status(400);
+                console.log(error);
+                res.json({ message: 'Manque d\'information' });
             }
             else {
-                res.status(201)
-                res.json(session)
+                res.status(201);
+                res.json(session);
             }
-        })
-    } catch (e) {
-        res.status(500)
-        console.log(e)
-        res.json({ message: "Erreur serveur !!" })
+        });
+    }
+    catch (e) {
+        res.status(500);
+        console.log(e);
+        res.json({ message: 'Erreur serveur !!' });
     }
 
-}
-//READ
+};
+// READ
 exports.list_all_sessions = (req, res) => {
     Session.find({}, (error, sessions) => {
         if (error) {
-            res.status(500)
-            console.log(error)
-            res.json({ message: "Erreur serveur !!" })
+            res.status(500);
+            console.log(error);
+            res.json({ message: 'Erreur serveur !!' });
         }
         else {
-            res.status(200)
-            res.json(sessions)
+            res.status(200);
+            res.json(sessions);
         }
-    })
-}
-//UPDATE
+    });
+};
+// UPDATE
 exports.update_a_session = (req, res) => {
     try {
         Session.findByIdAndUpdate(req.params.session_id, req.body, { new: true }, (error, session) => {
             if (error) {
-                res.status(400)
-                console.log(error)
-                res.json({ message: "La session n'existe pas" })
+                res.status(400);
+                console.log(error);
+                res.json({ message: 'La session n\'existe pas' });
             }
             else {
-                res.status(200)
-                res.json(session)
+                res.status(200);
+                res.json(session);
             }
-        })
-    } catch (e) {
-        res.status(500)
-        console.log(e)
-        res.json({ message: "Erreur serveur !!" })
+        });
     }
-}
-//DELETE
+    catch (e) {
+        res.status(500);
+        console.log(e);
+        res.json({ message: 'Erreur serveur !!' });
+    }
+};
+// DELETE
 exports.delete_a_session = (req, res) => {
     try {
         Session.findByIdAndRemove(req.params.session_id, (error) => {
             if (error) {
-                res.status(400)
-                console.log(error)
-                res.json({ message: "La session n'existe pas" })
+                res.status(400);
+                console.log(error);
+                res.json({ message: 'La session n\'existe pas' });
             }
             else {
                 res.status(200);
-                res.json({ message: "La session a bien été supprimé" })
+                res.json({ message: 'La session a bien été supprimé' });
             }
-        })
-    } catch (e) {
-        res.status(500)
-        console.log(e)
-        res.json({ message: "Erreur serveur !!" })
+        });
     }
-}
+    catch (e) {
+        res.status(500);
+        console.log(e);
+        res.json({ message: 'Erreur serveur !!' });
+    }
+};

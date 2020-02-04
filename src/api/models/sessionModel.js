@@ -1,22 +1,24 @@
+/* eslint-disable eol-last */
+/* eslint-disable prefer-const */
 /** Import librairy **/
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 /** Create schema **/
 let sessionSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     year: {
         type: String,
-        required: true
+        required: true,
     },
     created_at: {
         type: Date,
-        default: Date.now
-    }
+        default: Date.now,
+    },
 });
 
 /** Export schema **/
-module.exports = mongoose.model('Session', sessionSchema)
+module.exports = mongoose.model('Session', sessionSchema);

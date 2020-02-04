@@ -1,3 +1,6 @@
+/* eslint-disable eol-last */
+/* eslint-disable spaced-comment */
+/* eslint-disable max-len */
 /** Import librairy and user model **/
 // const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
@@ -52,7 +55,8 @@ exports.update_a_user = (req, res) => {
                 res.status(200);
                 res.json(user);
             }
-        } catch (e) {
+        }
+        catch (e) {
             res.status(500);
             res.json({ message: 'Erreur serveur.' });
         }
@@ -72,7 +76,8 @@ exports.delete_a_user = (req, res) => {
                 res.json(user);
                 console.log('deleted');
             }
-        } catch (e) {
+        }
+        catch (e) {
             res.status(500);
             res.json({ message: 'Erreur serveur.' });
         }
@@ -91,7 +96,8 @@ exports.get_a_user = (req, res) => {
                 res.status(200);
                 res.json(user);
             }
-        } catch (e) {
+        }
+        catch (e) {
             res.status(500);
             res.json({ message: 'Erreur serveur.' });
         }
