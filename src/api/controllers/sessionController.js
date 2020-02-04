@@ -1,8 +1,4 @@
-/* eslint-disable eol-last */
-/* eslint-disable max-len */
-/* eslint-disable padded-blocks */
 /** Import librairy and session model **/
-// const jwt = require('jsonwebtoken')
 const Session = require('../models/sessionModel');
 // CREATE
 exports.create_a_session = (req, res) => {
@@ -12,7 +8,7 @@ exports.create_a_session = (req, res) => {
             if (error) {
                 res.status(400);
                 console.log(error);
-                res.json({ message: 'Manque d\'information' });
+                res.json({ message: 'Il manque des informations pour la création' });
             }
             else {
                 res.status(201);
@@ -25,7 +21,6 @@ exports.create_a_session = (req, res) => {
         console.log(e);
         res.json({ message: 'Erreur serveur !!' });
     }
-
 };
 // READ
 exports.list_all_sessions = (req, res) => {
@@ -44,11 +39,11 @@ exports.list_all_sessions = (req, res) => {
 // UPDATE
 exports.update_a_session = (req, res) => {
     try {
-        Session.findByIdAndUpdate(req.params.session_id, req.body, { new: true }, (error, session) => {
+        Session.findByIdAndUpdate(req.body._id, req.body, { new: true }, (error, session)=> {
             if (error) {
                 res.status(400);
                 console.log(error);
-                res.json({ message: 'La session n\'existe pas' });
+                res.json({ message: 'Il manque des informations' });
             }
             else {
                 res.status(200);
@@ -65,11 +60,11 @@ exports.update_a_session = (req, res) => {
 // DELETE
 exports.delete_a_session = (req, res) => {
     try {
-        Session.findByIdAndRemove(req.params.session_id, (error) => {
+        Session.findByIdAndRemove(req.body._id, (error) => {
             if (error) {
                 res.status(400);
                 console.log(error);
-                res.json({ message: 'La session n\'existe pas' });
+                res.json({ message: 'Il manque des informations' });
             }
             else {
                 res.status(200);
@@ -82,4 +77,24 @@ exports.delete_a_session = (req, res) => {
         console.log(e);
         res.json({ message: 'Erreur serveur !!' });
     }
+};
+// GET A SESSION
+exports.get_a_session = (req, res) => {
+    Session.findById(req.params.session_id, (error, session) => {
+        try {
+            if (error) {
+                res.status(400);
+                console.log(error);
+                res.json({ message: 'Il manque des informations' });
+            }
+            else {
+                res.status(200);
+                res.json(session);
+            }
+        }
+        catch (e) {
+            res.status(500);
+            res.json({ message: 'Erreur serveur !!' });
+        }
+    });
 };

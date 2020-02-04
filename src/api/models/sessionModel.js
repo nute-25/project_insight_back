@@ -1,11 +1,9 @@
-/* eslint-disable eol-last */
-/* eslint-disable prefer-const */
 /** Import librairy **/
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 /** Create schema **/
-let sessionSchema = new Schema({
+const sessionSchema = new Schema({
     name: {
         type: String,
         required: true,

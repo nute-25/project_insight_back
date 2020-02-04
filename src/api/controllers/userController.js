@@ -1,6 +1,3 @@
-/* eslint-disable eol-last */
-/* eslint-disable spaced-comment */
-/* eslint-disable max-len */
 /** Import librairy and user model **/
 // const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
@@ -64,7 +61,7 @@ exports.update_a_user = (req, res) => {
 };
 
 exports.delete_a_user = (req, res) => {
-    User.deleteOne({ _id: req.body._id /*User.get_a_user()*/ }, (error, user) => {
+    User.deleteOne({ _id: req.body._id /* User.get_a_user()*/ }, (error, user) => {
         try {
             if (error) {
                 res.status(400);
