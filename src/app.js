@@ -63,5 +63,3 @@ userRoute(app);
 
 /** Bind and listen for connections on the specified host and port **/
 app.listen(port, hostname);
-
-
