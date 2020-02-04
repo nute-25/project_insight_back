@@ -18,6 +18,7 @@ module.exports = {
         "indent": ["error", 4],
         "camelcase": "off",
         "object-curly-spacing": ["error","always"],
-        "brace-style": ["error", "stroustrup"]
+        "brace-style": ["error", "stroustrup"],
+        "max-len": ["error", { "code": 100 }],
     }
 };
