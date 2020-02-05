@@ -80,23 +80,24 @@ exports.update_a_user = (req, res) => {
 };
 
 exports.delete_a_user = (req, res) => {
-    User.deleteOne({ _id: req.body._id }, (error, user) => {
-        try {
+    try {
+        User.findByIdAndRemove(req.body._id, (error) => {
             if (error) {
                 res.status(400);
                 console.warn(error);
-                res.json({ message: 'Il manque des informations.' });
+                res.json({ message: 'Id introuvable' });
             }
             else {
                 res.status(200);
-                res.json(user);
+                res.json({ message: 'L\'utilisateur a bien été supprimé' });
             }
-        }
-        catch (error) {
-            res.status(500);
-            res.json({ message: 'Erreur serveur.' });
-        }
-    });
+        });
+    }
+    catch (error) {
+        res.status(500);
+        console.warn(error);
+        res.json({ message: 'Erreur serveur' });
+    }
 };
 
 exports.get_a_user = (req, res) => {
