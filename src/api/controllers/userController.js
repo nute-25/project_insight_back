@@ -20,7 +20,7 @@ exports.register_a_user = (req, res) => {
             }
         });
     }
-    catch (e) {
+    catch (error) {
         res.status(500);
         res.json({ message: 'Erreur serveur' });
     }
@@ -52,7 +52,7 @@ exports.update_a_user = (req, res) => {
                 res.status(200);
                 res.json(user);
             }
-        } catch (e) {
+        } catch (error) {
             res.status(500);
             res.json({ message: 'Erreur serveur.' });
         }
@@ -72,7 +72,7 @@ exports.delete_a_user = (req, res) => {
                 res.json(user);
                 console.log('deleted');
             }
-        } catch (e) {
+        } catch (error) {
             res.status(500);
             res.json({ message: 'Erreur serveur.' });
         }
@@ -91,7 +91,7 @@ exports.get_a_user = (req, res) => {
                 res.status(200);
                 res.json(user);
             }
-        } catch (e) {
+        } catch (error) {
             res.status(500);
             res.json({ message: 'Erreur serveur.' });
         }
