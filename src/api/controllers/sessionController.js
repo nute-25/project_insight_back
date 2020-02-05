@@ -7,8 +7,8 @@ exports.create_a_session = (req, res) => {
         new_session.save((error, session) => {
             if (error) {
                 res.status(400);
-                console.log(error);
-                res.json({ message: 'Il manque des informations pour la création' });
+                console.warn(error);
+                res.json({ message: 'Il manque des informations' });
             }
             else {
                 res.status(201);
@@ -16,9 +16,9 @@ exports.create_a_session = (req, res) => {
             }
         });
     }
-    catch (e) {
+    catch (error) {
         res.status(500);
-        console.log(e);
+        console.warn(error);
         res.json({ message: 'Erreur serveur !!' });
     }
 };
@@ -27,7 +27,7 @@ exports.list_all_sessions = (req, res) => {
     Session.find({}, (error, sessions) => {
         if (error) {
             res.status(500);
-            console.log(error);
+            console.warn(error);
             res.json({ message: 'Erreur serveur !!' });
         }
         else {
@@ -42,7 +42,7 @@ exports.update_a_session = (req, res) => {
         Session.findByIdAndUpdate(req.body._id, req.body, { new: true }, (error, session)=> {
             if (error) {
                 res.status(400);
-                console.log(error);
+                console.warn(error);
                 res.json({ message: 'Il manque des informations' });
             }
             else {
@@ -51,9 +51,9 @@ exports.update_a_session = (req, res) => {
             }
         });
     }
-    catch (e) {
+    catch (error) {
         res.status(500);
-        console.log(e);
+        console.warn(error);
         res.json({ message: 'Erreur serveur !!' });
     }
 };
@@ -63,7 +63,7 @@ exports.delete_a_session = (req, res) => {
         Session.findByIdAndRemove(req.body._id, (error) => {
             if (error) {
                 res.status(400);
-                console.log(error);
+                console.warn(error);
                 res.json({ message: 'Il manque des informations' });
             }
             else {
@@ -72,9 +72,9 @@ exports.delete_a_session = (req, res) => {
             }
         });
     }
-    catch (e) {
+    catch (error) {
         res.status(500);
-        console.log(e);
+        console.warn(error);
         res.json({ message: 'Erreur serveur !!' });
     }
 };
@@ -84,7 +84,7 @@ exports.get_a_session = (req, res) => {
         try {
             if (error) {
                 res.status(400);
-                console.log(error);
+                console.warn(error);
                 res.json({ message: 'Il manque des informations' });
             }
             else {
@@ -92,8 +92,9 @@ exports.get_a_session = (req, res) => {
                 res.json(session);
             }
         }
-        catch (e) {
+        catch (error) {
             res.status(500);
+            console.warn(error);
             res.json({ message: 'Erreur serveur !!' });
         }
     });

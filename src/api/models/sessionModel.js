@@ -9,7 +9,7 @@ const sessionSchema = new Schema({
         required: true,
     },
     year: {
-        type: String,
+        type: Number,
         required: true,
     },
     created_at: {
