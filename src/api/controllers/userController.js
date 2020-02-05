@@ -52,7 +52,8 @@ exports.update_a_user = (req, res) => {
                 res.status(200);
                 res.json(user);
             }
-        } catch (error) {
+        }
+        catch (error) {
             res.status(500);
             res.json({ message: 'Erreur serveur.' });
         }
@@ -60,7 +61,7 @@ exports.update_a_user = (req, res) => {
 };
 
 exports.delete_a_user = (req, res) => {
-    User.deleteOne({ _id: req.body._id /*User.get_a_user()*/ }, (error, user) => {
+    User.deleteOne({ _id: req.body._id /* User.get_a_user()*/ }, (error, user) => {
         try {
             if (error) {
                 res.status(400);
@@ -72,7 +73,8 @@ exports.delete_a_user = (req, res) => {
                 res.json(user);
                 console.log('deleted');
             }
-        } catch (error) {
+        }
+        catch (error) {
             res.status(500);
             res.json({ message: 'Erreur serveur.' });
         }
@@ -91,7 +93,8 @@ exports.get_a_user = (req, res) => {
                 res.status(200);
                 res.json(user);
             }
-        } catch (error) {
+        }
+        catch (error) {
             res.status(500);
             res.json({ message: 'Erreur serveur.' });
         }
