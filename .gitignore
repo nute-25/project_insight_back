@@ -3,7 +3,7 @@ package-lock.json
 .DS_STORE
 .env
 logs/*
-./src/fixtures
+fixtures
 
 ### VisualStudioCode ###
 .vscode/*

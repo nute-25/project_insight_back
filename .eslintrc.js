@@ -20,5 +20,7 @@ module.exports = {
         "object-curly-spacing": ["error", "always"],
         "brace-style": ["error", "stroustrup"],
         "max-len": ["error", { "code": 120 }],
+        "operator-linebreak": ["error", "before"],
+        "no-console": ["error", { allow: ["warn", "error"] }],
     }
 };
