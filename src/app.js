@@ -15,6 +15,10 @@ const hostname = '0.0.0.0';
 const port = 3000;
 
 
+/** Prepare fixtures directory */
+if (!fs.existsSync('./fixtures')) {
+    fs.mkdirSync('./fixtures');
+}
 /** New fixtures/dataset **/
 const fixtures = new Fixtures({
     dir: './fixtures',
@@ -56,7 +60,7 @@ for (const model of model_list) {
             // TO DO : random marks here
             break;
         default:
-            console.log(`Nous ne générons pas de données pour "${model}".`);
+            console.error(`Nous ne générons pas de données pour "${model}".`);
             break;
     }
 
@@ -76,18 +80,23 @@ for (const model of model_list) {
 }
 
 // Once promises resolved or rejected
-Promise.all(prom_list).then((error) => {
-    if (error) {
+Promise.all(prom_list)
+    .then((error) => {
         console.error(error);
-    }
-    /** Load fixtures once the json file is save **/
-    fixtures
-        .connect('mongodb://mongo/' + process.env.DB_NAME)
-        .then(() => fixtures.unload())
-        .then(() => fixtures.load())
-        .catch((error) => console.error(error))
-        .finally(() => fixtures.disconnect());
-});
+        if (error) {
+            console.error(error);
+        }
+        /** Load fixtures once the json file is save **/
+        fixtures
+            .connect('mongodb://mongo/' + process.env.DB_NAME)
+            .then(() => fixtures.unload())
+            .then(() => fixtures.load())
+            .catch((error) => console.error(error))
+            .finally(() => fixtures.disconnect());
+    })
+    .catch(() => {
+        console.error('Le jeu de données n\'a pu être construit.');
+    });
 
 
 /** Replace special characters */
