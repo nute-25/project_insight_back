@@ -6,7 +6,26 @@ exports.register_a_user = (req, res) => {
     const new_user = new User(req.body);
     try {
         new_user.save((error, user) => {
-            if (error) {
+            // if user tries to duplicate a unique value
+            if (error && error.code === 11000) {
+                res.status(405);
+                const key_list = Object.keys(error.keyValue);
+                let error_msg = '';
+                for (const key of key_list) {
+                    switch (key) {
+                        case 'pseudo':
+                            error_msg += 'Le pseudo "' + error.keyValue[key]
+                                + '" existe déjà. Merci d\'en choisir un nouveau.';
+                            break;
+                        default:
+                            error_msg += 'La valeur du champs "' + key
+                                + '" existe déjà. Merci d\'en choisir une nouvelle.';
+                            break;
+                    }
+                }
+                res.json({ message: error_msg });
+            }
+            else if (error) {
                 res.status(400);
                 res.json({ message: 'Il manque des informations' });
             }
@@ -20,7 +39,7 @@ exports.register_a_user = (req, res) => {
             }
         });
     }
-    catch (e) {
+    catch (error) {
         res.status(500);
         res.json({ message: 'Erreur serveur' });
     }
@@ -30,7 +49,7 @@ exports.list_all_users = (req, res) => {
     User.find({}, (error, users) => {
         if (error) {
             res.status(500);
-            console.log(error);
+            console.warn(error);
             res.json({ message: 'Erreur serveur.' });
         }
         else {
@@ -45,14 +64,15 @@ exports.update_a_user = (req, res) => {
         try {
             if (error) {
                 res.status(400);
-                console.log(error);
+                console.warn(error);
                 res.json({ message: 'Il manque des informations.' });
             }
             else {
                 res.status(200);
                 res.json(user);
             }
-        } catch (e) {
+        }
+        catch (error) {
             res.status(500);
             res.json({ message: 'Erreur serveur.' });
         }
@@ -60,23 +80,24 @@ exports.update_a_user = (req, res) => {
 };
 
 exports.delete_a_user = (req, res) => {
-    User.deleteOne({ _id: req.body._id /*User.get_a_user()*/ }, (error, user) => {
-        try {
+    try {
+        User.findByIdAndRemove(req.body._id, (error) => {
             if (error) {
                 res.status(400);
-                console.log(error);
-                res.json({ message: 'Il manque des informations.' });
+                console.warn(error);
+                res.json({ message: 'Id introuvable' });
             }
             else {
                 res.status(200);
-                res.json(user);
-                console.log('deleted');
+                res.json({ message: 'L\'utilisateur a bien été supprimé' });
             }
-        } catch (e) {
-            res.status(500);
-            res.json({ message: 'Erreur serveur.' });
-        }
-    });
+        });
+    }
+    catch (error) {
+        res.status(500);
+        console.warn(error);
+        res.json({ message: 'Erreur serveur' });
+    }
 };
 
 exports.get_a_user = (req, res) => {
@@ -84,14 +105,15 @@ exports.get_a_user = (req, res) => {
         try {
             if (error) {
                 res.status(400);
-                console.log(error);
+                console.warn(error);
                 res.json({ message: 'Il manque des informations.' });
             }
             else {
                 res.status(200);
                 res.json(user);
             }
-        } catch (e) {
+        }
+        catch (error) {
             res.status(500);
             res.json({ message: 'Erreur serveur.' });
         }
