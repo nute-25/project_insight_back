@@ -1,7 +1,8 @@
 /** Import librairies and user model **/
-// const jwt = require('jsonwebtoken');
-const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('../models/userModel');
+
 
 const saltRounds = 10;
 
@@ -41,12 +42,11 @@ exports.register_a_user = (req, res) => {
             }
             else {
                 res.status(201);
-
-
-                // user = user.toObject();
-                // user.password = undefined;
-                res.json(user);
-                // res.json({email : user.email});
+                // if (user.role === 'teacher') {
+                //     delete user.password;
+                // }
+                res.json({ message: 'L\'utilisateur ' + user.pseudo + ' a bien été créé.' });
+                // res.json(user);
             }
         });
     }
@@ -147,7 +147,14 @@ exports.login_user = (req, res) => {
                 }
                 else {
                     res.status(200);
-                    res.json({ message: 'Vous êtes connecté.' });
+                    // res.json({ message: 'Vous êtes connecté.' });
+
+                    jwt.sign({ pseudo: user.pseudo }, process.env.JWT_KEY, { expiresIn: '10m' }, (jwtError, token) => {
+                        if (token) {
+                            res.status(200);
+                            res.json({ token, message: 'Vous êtes connecté.' });
+                        }
+                    });
                 }
             });
         }
