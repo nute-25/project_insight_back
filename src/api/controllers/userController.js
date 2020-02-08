@@ -1,10 +1,20 @@
-/** Import librairy and user model **/
+/** Import librairies and user model **/
 // const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
+
 
 exports.register_a_user = (req, res) => {
     const new_user = new User(req.body);
+
     try {
+        let { password } = req.body;
+        // hachage du mdp
+        password = bcrypt.hashSync(password, saltRounds);
+        new_user.password = password;
+
         new_user.save((error, user) => {
             // if user tries to duplicate a unique value
             if (error && error.code === 11000) {
@@ -31,9 +41,10 @@ exports.register_a_user = (req, res) => {
             }
             else {
                 res.status(201);
-                user = user.toObject();
-                // delete user.password
-                user.password = undefined;
+
+
+                // user = user.toObject();
+                // user.password = undefined;
                 res.json(user);
                 // res.json({email : user.email});
             }
@@ -120,6 +131,30 @@ exports.get_a_user = (req, res) => {
     });
 };
 
-// exports.login_user = (req, res) => {
-//     User.findOne()
-// }
+exports.login_user = (req, res) => {
+    try {
+        if (typeof req.body.pseudo === 'undefined' || typeof req.body.password === 'undefined') {
+            res.status(401);
+            res.json({ message: 'Vous devez renseigner votre pseudo et votre mot de passe.' });
+        }
+        else {
+            User.findOne({ pseudo: req.body.pseudo }, (error, user) => {
+                if (user === null || !bcrypt.compareSync(req.body.password, user.password)) {
+                    // no user is found with this pseudo or wrong password
+                    res.status(401);
+                    console.warn(error);
+                    res.json({ message: 'Votre pseudo ou mot de passe est incorrect.' });
+                }
+                else {
+                    res.status(200);
+                    res.json({ message: 'Vous êtes connecté.' });
+                }
+            });
+        }
+    }
+    catch (error) {
+        res.status(500);
+        console.warn(error);
+        res.json({ message: 'Erreur serveur.' });
+    }
+};
