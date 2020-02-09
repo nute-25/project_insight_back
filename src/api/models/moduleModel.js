@@ -22,7 +22,7 @@ const moduleSchema = new Schema({
     },
     session_id: {
         type: String,
-        default: 'NO',
+        required: true,
     },
     created_at: {
         type: Date,
