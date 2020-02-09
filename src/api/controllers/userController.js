@@ -1,10 +1,21 @@
-/** Import librairy and user model **/
-// const jwt = require('jsonwebtoken');
+/** Import librairies and user model **/
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
+
+const saltRounds = 10;
+
+// CREATE
 exports.register_a_user = (req, res) => {
     const new_user = new User(req.body);
+
     try {
+        let { password } = req.body;
+        // hash password
+        password = bcrypt.hashSync(password, saltRounds);
+        new_user.password = password;
+
         new_user.save((error, user) => {
             // if user tries to duplicate a unique value
             if (error && error.code === 11000) {
@@ -31,11 +42,11 @@ exports.register_a_user = (req, res) => {
             }
             else {
                 res.status(201);
-                user = user.toObject();
-                // delete user.password
-                user.password = undefined;
-                res.json(user);
-                // res.json({email : user.email});
+                // if (user.role === 'teacher') {
+                //     delete user.password;
+                // }
+                res.json({ message: 'L\'utilisateur ' + user.pseudo + ' a bien été créé.' });
+                // res.json(user);
             }
         });
     }
@@ -45,23 +56,38 @@ exports.register_a_user = (req, res) => {
     }
 };
 
+// READ
 exports.list_all_users = (req, res) => {
-    User.find({}, (error, users) => {
-        if (error) {
-            res.status(500);
-            console.warn(error);
-            res.json({ message: 'Erreur serveur.' });
-        }
-        else {
-            res.status(200);
-            res.json(users);
-        }
-    });
+    try {
+        User.find({}, (error, users) => {
+            if (error) {
+                res.status(400);
+                console.warn(error);
+                res.json({ message: 'Votre demande n\'a pu aboutir.' });
+            }
+            else {
+                res.status(200);
+                res.json(users);
+            }
+        });
+    }
+    catch (error) {
+        res.status(500);
+        console.warn(error);
+        res.json({ message: 'Erreur serveur.' });
+    }
 };
 
+// UPDATE
 exports.update_a_user = (req, res) => {
-    User.findByIdAndUpdate(req.body._id, req.body, { new: true }, (error, user) => {
-        try {
+    try {
+        const { password } = req.body;
+        // if admin modifies user's password
+        if (typeof password !== 'undefined') {
+            // hash new password
+            req.body.password = bcrypt.hashSync(password, saltRounds);
+        }
+        User.findByIdAndUpdate(req.body._id, req.body, { new: true }, (error, user) => {
             if (error) {
                 res.status(400);
                 console.warn(error);
@@ -71,14 +97,15 @@ exports.update_a_user = (req, res) => {
                 res.status(200);
                 res.json(user);
             }
-        }
-        catch (error) {
-            res.status(500);
-            res.json({ message: 'Erreur serveur.' });
-        }
-    });
+        });
+    }
+    catch (error) {
+        res.status(500);
+        res.json({ message: 'Erreur serveur.' });
+    }
 };
 
+// DELETE
 exports.delete_a_user = (req, res) => {
     try {
         User.findByIdAndRemove(req.body._id, (error) => {
@@ -100,9 +127,10 @@ exports.delete_a_user = (req, res) => {
     }
 };
 
+
 exports.get_a_user = (req, res) => {
-    User.findById(req.params.user_id, (error, user) => {
-        try {
+    try {
+        User.findById(req.params.user_id, (error, user) => {
             if (error) {
                 res.status(400);
                 console.warn(error);
@@ -112,14 +140,49 @@ exports.get_a_user = (req, res) => {
                 res.status(200);
                 res.json(user);
             }
-        }
-        catch (error) {
-            res.status(500);
-            res.json({ message: 'Erreur serveur.' });
-        }
-    });
+        });
+    }
+    catch (error) {
+        res.status(500);
+        res.json({ message: 'Erreur serveur.' });
+    }
 };
 
-// exports.login_user = (req, res) => {
-//     User.findOne()
-// }
+exports.login_user = (req, res) => {
+    try {
+        if (typeof req.body.pseudo === 'undefined' || typeof req.body.password === 'undefined') {
+            res.status(401);
+            res.json({ message: 'Vous devez renseigner votre pseudo et votre mot de passe.' });
+        }
+        else {
+            User.findOne({ pseudo: req.body.pseudo }, (error, user) => {
+                if (user === null || !bcrypt.compareSync(req.body.password, user.password)) {
+                    // no user is found with this pseudo or wrong password
+                    res.status(401);
+                    console.warn(error);
+                    res.json({ message: 'Votre pseudo ou mot de passe est incorrect.' });
+                }
+                else if (error) {
+                    res.status(400);
+                    console.warn(error);
+                    res.json({ message: 'Votre demande n\'a pu aboutir.' });
+                }
+                else {
+                    // successful authentication
+                    // genrate token
+                    jwt.sign({ pseudo: user.pseudo }, process.env.JWT_KEY, { expiresIn: '10m' }, (jwtError, token) => {
+                        if (token) {
+                            res.status(200);
+                            res.json({ token, message: 'Vous êtes connecté.' });
+                        }
+                    });
+                }
+            });
+        }
+    }
+    catch (error) {
+        res.status(500);
+        console.warn(error);
+        res.json({ message: 'Erreur serveur.' });
+    }
+};
