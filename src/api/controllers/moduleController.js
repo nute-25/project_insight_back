@@ -65,38 +65,38 @@ exports.list_all_modules_from_a_session = (req, res) => {
         res.json({ message: 'Erreur serveur !!' });
     }
 };
-// // DELETE
-// exports.delete_a_module_from_a_session = (req, res) => {
-//     try {
-//         const { session_id } = req.params;
-//         const { session_id } = req.params;
-//         Session.findById(session_id, (error, session) => {
-//             if (error) {
-//                 res.status(400);
-//                 console.warn(error);
-//                 res.json({ message: 'Session introuvable' });
-//             }
-//             else {
-//                 Module.findByIdAndRemove(req.body.module_id, (error) => {
-//                     if (error) {
-//                         res.status(400);
-//                         console.warn(error);
-//                         res.json({ message: 'Module introuvable' });
-//                     }
-//                     else {
-//                         res.status(200);
-//                         res.json({ message: 'Le module a bien été supprimé' });
-//                     }
-//                 });
-//             }
-//         });
-//     }
-//     catch (error) {
-//         res.status(500);
-//         console.warn(error);
-//         res.json({ message: 'Erreur serveur !!' });
-//     }
-// };
+// DELETE
+exports.delete_a_module_from_a_session = (req, res) => {
+    try {
+        const { session_id } = req.params;
+        const { module_id } = req.body;
+        Session.findById(session_id, (error, session) => {
+            if (error) {
+                res.status(400);
+                console.warn(error);
+                res.json({ message: 'Session introuvable' });
+            }
+            else {
+                Module.findByIdAndRemove(module_id, (error) => {
+                    if (error) {
+                        res.status(400);
+                        console.warn(error);
+                        res.json({ message: 'Module introuvable' });
+                    }
+                    else {
+                        res.status(200);
+                        res.json({ message: 'Le module a bien été supprimé' });
+                    }
+                });
+            }
+        });
+    }
+    catch (error) {
+        res.status(500);
+        console.warn(error);
+        res.json({ message: 'Erreur serveur !!' });
+    }
+};
 // // UPDATE
 // exports.update_a_module = (req, res) => {
 //     try {
