@@ -68,16 +68,14 @@ exports.list_all_modules_from_a_session = (req, res) => {
 // DELETE
 exports.delete_a_module_from_a_session = (req, res) => {
     try {
-        const { session_id } = req.params;
-        const { module_id } = req.body;
-        Session.findById(session_id, (error, session) => {
+        Session.findById(req.params.session_id, (error, session) => {
             if (error) {
                 res.status(400);
                 console.warn(error);
                 res.json({ message: 'Session introuvable' });
             }
             else {
-                Module.findByIdAndRemove(module_id, (error) => {
+                Module.findByIdAndRemove(req.body.module_id, (error) => {
                     if (error) {
                         res.status(400);
                         console.warn(error);
@@ -97,48 +95,48 @@ exports.delete_a_module_from_a_session = (req, res) => {
         res.json({ message: 'Erreur serveur !!' });
     }
 };
-// // UPDATE
-// exports.update_a_module = (req, res) => {
-//     try {
-//         Module.findByIdAndUpdate(req.body.module_id, req.body, { new: true }, (error, module) => {
-//             if (error) {
-//                 res.status(400);
-//                 console.warn(error);
-//                 res.json({ message: 'Module introuvable' });
-//             }
-//             else {
-//                 res.status(200);
-//                 res.json(module);
-//             }
-//         });
-//     }
-//     catch (error) {
-//         res.status(500);
-//         console.warn(error);
-//         res.json({ message: 'Erreur serveur' });
-//     }
-// };
-// // GET A MODULE
-// exports.get_a_module = (req, res) => {
-//     try {
-//         Module.findById(req.body.module_id, (error, module) => {
-//             if (error) {
-//                 res.status(400);
-//                 console.warn(error);
-//                 res.json({ message: 'Module introuvable' });
-//             }
-//             else {
-//                 res.status(200);
-//                 res.json(module);
-//             }
-//         });
-//     }
-//     catch (e) {
-//         res.status(500);
-//         console.warn(error);
-//         res.json({ message: 'Erreur serveur' });
-//     }
-// };
+// UPDATE
+exports.update_a_module = (req, res) => {
+    try {
+        Module.findByIdAndUpdate(req.body.module_id, req.body, { new: true }, (error, module) => {
+            if (error) {
+                res.status(400);
+                console.warn(error);
+                res.json({ message: 'Module introuvable' });
+            }
+            else {
+                res.status(200);
+                res.json(module);
+            }
+        });
+    }
+    catch (error) {
+        res.status(500);
+        console.warn(error);
+        res.json({ message: 'Erreur serveur' });
+    }
+};
+// GET A MODULE
+exports.get_a_module = (req, res) => {
+    try {
+        Module.findById(req.body.module_id, (error, module) => {
+            if (error) {
+                res.status(400);
+                console.warn(error);
+                res.json({ message: 'Module introuvable' });
+            }
+            else {
+                res.status(200);
+                res.json(module);
+            }
+        });
+    }
+    catch (error) {
+        res.status(500);
+        console.warn(error);
+        res.json({ message: 'Erreur serveur' });
+    }
+};
 // exports.list_all_modules_from_a_session = (req, res) => {
 //     Session.findById( req.params.session_id, (error, session) => {
 //         if (session) {
