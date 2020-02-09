@@ -137,31 +137,4 @@ exports.get_a_module = (req, res) => {
         res.json({ message: 'Erreur serveur' });
     }
 };
-// exports.list_all_modules_from_a_session = (req, res) => {
-//     Session.findById( req.params.session_id, (error, session) => {
-//         if (session) {
-//             res.json(session);
-//             Module.find({ session_id: req.params.session_id }, (error, modules) => {
-//                 if (error) {
-//                     res.status(500);
-//                     console.warn(error);
-//                     res.json({ message: 'Erreur serveur.' });
-//                 }
-//                 else {
-//                     res.status(200);
-//                     res.json(modules);
-//                 }
-//             });
-//         }
-//     });
-// Module.find({ session_id: req.params.session_id }, (error, modules) => {
-//     if (error) {
-//         res.status(500);
-//         console.warn(error);
-//         res.json({ message: 'Erreur serveur.' });
-//     }
-//     else {
-//         res.status(200);
-//         res.json(modules);
-//     }
-// });
+
