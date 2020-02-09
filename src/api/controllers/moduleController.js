@@ -1,5 +1,6 @@
-/** Import librairy and user model **/
+/** Import librairy and module model **/
 const Module = require('../models/moduleModel');
+const Session = require('../models/sessionModel');
 // si la session n'existe pas
 // CREATE
 exports.create_a_module = (req, res) => {
@@ -91,8 +92,8 @@ exports.get_a_module_from_a_session = (req, res) => {
     });
 };
 // READ
-exports.list_all_modules_from_a_session = (req, res) => {
-    Module.find({}, ({ session_id: req.params.session_id }, (error, module) => {
+/*exports.list_all_modules_from_a_session = (req, res) => {
+    Module.find({ session_id: req.params.session_id }, (error, modules) => {
         if (error) {
             res.status(500);
             console.warn(error);
@@ -100,9 +101,40 @@ exports.list_all_modules_from_a_session = (req, res) => {
         }
         else {
             res.status(200);
-            res.json(module);
+            res.json(modules);
         }
-    }));
+    });
+};
+*/
+exports.list_all_modules_from_a_session = (req, res) => {
+    try {
+        Session.findById(session_id, (error, session) => {
+            if (session) {
+                res.json('session_id : ${session_id} existe');
+                Module.find({ session_id: req.params.session_id }, (error, modules) => {
+                    if (error) {
+                        res.status(500);
+                        console.warn(error);
+                        res.json({ message: 'Erreur serveur !!' });
+                    }
+                    else {
+                        res.status(200);
+                        res.json(modules);
+                    }
+                });
+            }
+            else {
+                res.status(400);
+                console.warn(error);
+                res.json({ message: 'session_id : ${session_id} non existant' });
+            }
+        });
+    }
+    catch (error) {
+        res.status(500);
+        console.warn(error);
+        res.json({ message: 'Erreur serveur !!' });
+    }
 };
 
 /*
