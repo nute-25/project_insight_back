@@ -109,12 +109,12 @@ app.use(bodyParser.json());
 const sessionRoute = require('./api/routes/sessionRoute');
 const moduleRoute = require('./api/routes/moduleRoute');
 const userRoute = require('./api/routes/userRoute');
-// const markRoute = require('./api/routes/markRoute');
+const markRoute = require('./api/routes/markRoute');
 // Use anonymous function saved in constant variables
 sessionRoute(app);
 moduleRoute(app);
 userRoute(app);
-// markRoute(app);
+markRoute(app);
 
 
 /** Bind and listen for connections on the specified host and port **/
