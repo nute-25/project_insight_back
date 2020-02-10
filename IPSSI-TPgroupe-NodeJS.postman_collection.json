@@ -1,0 +1,756 @@
+{
+	"info": {
+		"_postman_id": "2e69e4c8-03ca-4146-af2a-ad1c1bacfe29",
+		"name": "IPSSI-TPgroupe-NodeJS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create new session",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "EISI-IT 21.1AW",
+							"type": "text"
+						},
+						{
+							"key": "year",
+							"value": "2020",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/sessions",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sessions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get sessions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/sessions",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sessions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get session with id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/sessions/5e41c68770f8d0017128c8f8",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sessions",
+						"5e41c68770f8d0017128c8f8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update session with id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "_id",
+							"value": "5e41c68770f8d0017128c8f8",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "EISI-IT 21.1CS",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/sessions",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sessions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete session with id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "_id",
+							"value": "5e41c72170f8d0017128c8f9",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/sessions",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sessions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create module from session",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "NodeJs",
+							"type": "text"
+						},
+						{
+							"key": "start_date",
+							"value": "2020-02-18T10:00:00Z",
+							"type": "text"
+						},
+						{
+							"key": "end_date",
+							"value": "2016-02-24T16:00:00Z",
+							"type": "text"
+						},
+						{
+							"key": "speaker_id",
+							"value": "007",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/sessions/5e41c68770f8d0017128c8f8/modules",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sessions",
+						"5e41c68770f8d0017128c8f8",
+						"modules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get modules from session",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "localhost:3000/sessions/5e41c68770f8d0017128c8f8/modules",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sessions",
+						"5e41c68770f8d0017128c8f8",
+						"modules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get module with id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "module_id",
+							"value": "5e41c7c470f8d0017128c8fa",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/modules",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"modules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update module",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "module_id",
+							"value": "5e41c84570f8d0017128c8fb",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Web Security",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/modules",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"modules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete module from session",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "module_id",
+							"value": "5e41c84570f8d0017128c8fb",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/sessions/5e41c68770f8d0017128c8f8/modules",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sessions",
+						"5e41c68770f8d0017128c8f8",
+						"modules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create new user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Jebli",
+							"type": "text"
+						},
+						{
+							"key": "first_name",
+							"value": "Inès",
+							"type": "text"
+						},
+						{
+							"key": "pseudo",
+							"value": "jbl_pour_les_intimes",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "ines",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "student",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nom",
+							"value": "Bernard",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "prenom",
+							"value": "Marie",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "pseudo",
+							"value": "marie",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "mbernard",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "role",
+							"value": "etudiant",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "nono@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "nono",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user with id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "localhost:3000/users/5e41cab070f8d0017128c8fd",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"5e41cab070f8d0017128c8fd"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "nono@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "nono",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user with id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Poilleux",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "first_name",
+							"value": "Nolwenn",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "pseudo",
+							"value": "coco_nute",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "nono",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "student",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "_id",
+							"value": "5e41cab070f8d0017128c8fd",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "nono@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "nono",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "pseudo",
+							"value": "coco_nute",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "nono",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/users/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user with id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "_id",
+							"value": "5e41cab070f8d0017128c8fd",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add mark",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "mark",
+							"value": "20",
+							"type": "text"
+						},
+						{
+							"key": "comment",
+							"value": "Good jobs !",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "5e41ca5770f8d0017128c8fc",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/modules/5e41c7c470f8d0017128c8fa/marks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"modules",
+						"5e41c7c470f8d0017128c8fa",
+						"marks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get average of marks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/marks/average",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"marks",
+						"average"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
