@@ -51,6 +51,12 @@ exports.get_average_mark_from_a_module = (req, res) => {
                         _id: '$module_id',
                         avgMark: { $avg: '$mark' },
                     },
+                    // $lookup: {
+                    //     from: 'Module',
+                    //     localField: '_id',
+                    //     foreignField: 'module_id',
+                    //     as: 'module',
+                    // },
                 },
             ], (aggregate_error, aggregate_result) => {
                 if (aggregate_error) {
@@ -59,17 +65,6 @@ exports.get_average_mark_from_a_module = (req, res) => {
                     res.json({ aggregate_error });
                 }
                 else {
-                    // Module.findById(aggregate_result._id, (error, module) => {
-                    //     if (error) {
-                    //         res.status(400);
-                    //         console.warn(error);
-                    //         res.json({ message: 'Module introuvable' });
-                    //     }
-                    //     else {
-                    //         res.status(200);
-                    //         // start_date, end_date, speaker_id => first_name and name of user
-                    //     }
-                    // });
                     res.status(200);
                     res.json({ aggregate_result });
                 }
