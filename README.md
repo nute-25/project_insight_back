@@ -21,7 +21,7 @@ git clone git@github.com:nute-25/project_insight_back.git
 
 ## Postman :
 ```
-Import postman_collection.json to use prepared queries.
+Import IPSSI-TPgroupe-NodeJS.postman_collection.json to use prepared queries. To find it, please go to the root of the folder.
 ```
 
 Postman acts as an interface. It allows to testing of API without having to use a front-end.
