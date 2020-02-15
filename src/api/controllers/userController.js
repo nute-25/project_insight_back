@@ -169,16 +169,21 @@ exports.login_user = (req, res) => {
                 }
                 else {
                     // successful authentication
+                    // token_life expressed in seconds
+                    const t_life = 600;
                     // genrate token
-                    jwt.sign({ pseudo: user.pseudo }, process.env.JWT_KEY, { expiresIn: '10m' }, (jwtError, token) => {
+                    jwt.sign({ pseudo: user.pseudo }, process.env.JWT_KEY, { expiresIn: t_life }, (jwtError, token) => {
                         if (token) {
+                            // create cookie to save token
+                            res.cookie('token', token, { expires: new Date(Date.now() + t_life * 1000) });
                             res.status(200);
-                            res.json({ token, message: 'Vous êtes connecté.' });
+                            res.json({ token, message: 'Vous êtes connecté.'/* , cookies: req.cookies.token */ });
                         }
                     });
                 }
             });
         }
+        // next();
     }
     catch (error) {
         res.status(500);
