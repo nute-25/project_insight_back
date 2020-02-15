@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const Fixtures = require('node-mongodb-fixtures');
 const faker = require('faker');
 const fs = require('fs');
@@ -103,6 +104,7 @@ Promise.all(prom_list)
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(cookieParser());
 
 /** Link to route files **/
 // Import anonymous functions in constant variables
